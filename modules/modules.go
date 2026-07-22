@@ -51,7 +51,7 @@ func (Filestru Filestruct) Readfile() (<-chan string, error) {
 	}()
 	return out, nil
 }
-func Woкkwithfile(f Fl) {
+func Workwithfile(f Fl) {
 	fl, err := f.Readfile()
 	if err != nil {
 		return

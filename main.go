@@ -26,7 +26,7 @@ func main() {
 		Filename: *fil,
 		Filter:   filt,
 	}
-	modules.Wrokwithfile(filestruc)
+	modules.Workwithfile(filestruc)
 }
 func getmsg() (string, error) {
 	fmt.Print("Write your filter:")
