@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"ltz/modules"
 	"os"
+	"strings"
 )
 
 var fil = flag.String("f", "", "Write here your filename for pipeline")
@@ -25,21 +26,14 @@ func main() {
 		Filename: *fil,
 		Filter:   filt,
 	}
-	a, err := filestruc.Readfile()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-	b := filestruc.Filt(a)
-	for el := range b {
-		fmt.Println(el)
-	}
+	modules.Wrokwithfile(filestruc)
 }
 func getmsg() (string, error) {
+	fmt.Print("Write your filter:")
 	reader := bufio.NewReader(os.Stdin)
 	zx, err := reader.ReadString('\n')
 	if err != nil {
 		return "", fmt.Errorf("You have error %w", err)
 	}
-	return zx, nil
+	return strings.TrimSpace(zx), nil
 }

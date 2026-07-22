@@ -5,12 +5,15 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	"sync"
 )
 
 type Filestruct struct {
 	Filename string
 	Filter   string
+}
+type Fl interface {
+	Readfile() (<-chan string, error)
+	Filt(<-chan string) <-chan string
 }
 
 func (Zxcm Filestruct) Filt(out <-chan string) <-chan string {
@@ -27,9 +30,6 @@ func (Zxcm Filestruct) Filt(out <-chan string) <-chan string {
 	}()
 	return exits
 }
-
-var m sync.Mutex
-
 func (Filestru Filestruct) Readfile() (<-chan string, error) {
 	out := make(chan string)
 	file, err := os.Open(Filestru.Filename)
@@ -50,4 +50,14 @@ func (Filestru Filestruct) Readfile() (<-chan string, error) {
 		}
 	}()
 	return out, nil
+}
+func Woкkwithfile(f Fl) {
+	fl, err := f.Readfile()
+	if err != nil {
+		return
+	}
+	a := f.Filt(fl)
+	for el := range a {
+		fmt.Println(el)
+	}
 }
